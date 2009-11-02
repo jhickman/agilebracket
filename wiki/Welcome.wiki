@@ -2,13 +2,13 @@
 
 = Introduction =
 
-Welcome to AgileBracket.
+Welcome to Agile Bracket.
 
 You can find our main website at:  http://www.agilebracket.org/
 
-
 Sub projects:
-   * AgileBracketPlanner
+   * NetAddrIp
+   * AgileBracketPlanner - on hold
 
 
 
