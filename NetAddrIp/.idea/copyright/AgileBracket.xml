@@ -1,6 +1,6 @@
 <component name="CopyrightManager">
   <copyright>
-    <option name="notice" value="Copyright (c) &amp;#36;today.year. Lorem ipsum dolor sit amet, consectetur adipiscing elit. &#10;Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan. &#10;Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna. &#10;Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus. &#10;Vestibulum commodo. Ut rhoncus gravida arcu." />
+    <option name="notice" value="This file is part of AgileBracket.&#10;&#10;AgileBracket is free software: you can redistribute it and/or modify&#10;it under the terms of the GNU Lesser General Public License as published by&#10;the Free Software Foundation, either version 3 of the License, or&#10;(at your option) any later version.&#10;&#10;AgileBracket is distributed in the hope that it will be useful,&#10;but WITHOUT ANY WARRANTY; without even the implied warranty of&#10;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#10;GNU Lesser General Public License for more details.&#10;&#10;You should have received a copy of the GNU Lesser General Public License&#10;along with AgileBracket.  If not, see &lt;http://www.gnu.org/licenses/&gt;." />
     <option name="keyword" value="Copyright" />
     <option name="allowReplaceKeyword" value="" />
     <option name="myName" value="AgileBracket" />
