@@ -2,10 +2,10 @@
 package org.agilebracket.net.ip.matcher;
 
 import org.agilebracket.net.ip.NetAddrIp;
+import org.agilebracket.util.Assert;
 
-import org.apache.log4j.Logger;
-
-import org.springframework.util.Assert;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
 public class SimpleIpMatcher
     implements IpMatcher
 {
-    private static final Logger log = Logger.getLogger(SimpleIpMatcher.class);
+    private static final Logger logger = Logger.getLogger(SimpleIpMatcher.class.getName());
 
     private NetAddrIp[] rejectedIpBlocks = new NetAddrIp[0];
     private NetAddrIp[] acceptedIpBlocks = new NetAddrIp[0];
@@ -26,11 +26,11 @@ public class SimpleIpMatcher
     public void setRejectedIpBlocks(NetAddrIp[] rejectedIpBlocks)
     {
         this.rejectedIpBlocks = rejectedIpBlocks;
-        if (log.isDebugEnabled())
+        if (logger.isLoggable(Level.FINE))
         {
             for (NetAddrIp ipBlock : rejectedIpBlocks)
             {
-                log.debug("Setting rejected IP block " + ipBlock);
+                logger.log(Level.FINE, "Setting rejected IP block " + ipBlock);
             }
         }
     }
@@ -42,11 +42,11 @@ public class SimpleIpMatcher
     public void setAcceptedLocalPorts(NetAddrIp[] acceptedIpBlocks)
     {
         this.acceptedIpBlocks = acceptedIpBlocks;
-        if (log.isDebugEnabled())
+        if (logger.isLoggable(Level.FINE))
         {
             for (NetAddrIp ipBlock : acceptedIpBlocks)
             {
-                log.debug("Setting accepted IP block " + ipBlock);
+                logger.log(Level.FINE, "Setting accepted IP block " + ipBlock);
             }
         }
     }
@@ -58,7 +58,7 @@ public class SimpleIpMatcher
     public void setDefaultAccept(boolean defaultAccept)
     {
         this.defaultAccept = defaultAccept;
-        if (log.isDebugEnabled()) log.debug("Setting default accept = " + defaultAccept);
+        if (logger.isLoggable(Level.FINE)) logger.log(Level.FINE, "Setting default accept = " + defaultAccept);
     }
 
     public void afterPropertiesSet()
