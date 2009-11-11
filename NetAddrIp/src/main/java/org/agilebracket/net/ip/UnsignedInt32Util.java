@@ -1,0 +1,64 @@
+//-*- java -*- @(#)
+//Content-Type: text/x-java; charset=iso-8859-1
+
+/**
+ * 
+ */
+package org.agilebracket.net.ip;
+
+import java.util.Comparator;
+
+import static org.agilebracket.net.ip.NetAddrIpConstants.ALL_ONES_LONG;
+
+/**
+ * Utilities for treating an int as an unsigned 32-bit value.
+ */
+public class UnsignedInt32Util
+{
+    public static final int MIN_UNSIGNED_VALUE = 0x0;
+    public static final int MAX_UNSIGNED_VALUE = 0xFFFFFFFF;
+
+    private static final int SIGN_BIT_ONE = Integer.MIN_VALUE;  // 0x80000000
+
+    private UnsignedInt32Util() { }
+    
+    public static long getLong(int uint32Value)
+    {
+        return uint32Value & ALL_ONES_LONG;
+    }
+
+    public static boolean greaterThan(int a, int b)
+    {
+        return (a ^ SIGN_BIT_ONE) > (b ^ SIGN_BIT_ONE);
+    }
+
+    public static boolean greaterThanOrEqual(int a, int b)
+    {
+        return (a ^ SIGN_BIT_ONE) >= (b ^ SIGN_BIT_ONE);
+    }
+    
+    public static boolean lessThan(int a, int b)
+    {
+        return (a ^ SIGN_BIT_ONE) < (b ^ SIGN_BIT_ONE);   
+    }
+    
+    public static boolean lessThanOrEqual(int a, int b)
+    {
+        return (a ^ SIGN_BIT_ONE) <= (b ^ SIGN_BIT_ONE);
+    }
+    
+    public static int getComparison(int a, int b)
+    {
+        if (a == b) return 0;
+        return (greaterThan(a, b)) ? 1 : -1;
+    }
+
+    public static class UnsignedInt32Comparator
+        implements Comparator<Integer>
+    {
+        public int compare(Integer theA, Integer theB)
+        {
+            return getComparison(theA.intValue(), theB.intValue());
+        }
+    }
+}
