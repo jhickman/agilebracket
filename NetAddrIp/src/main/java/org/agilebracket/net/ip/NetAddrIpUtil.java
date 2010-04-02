@@ -83,8 +83,7 @@ public class NetAddrIpUtil
         StringBuffer buf = new StringBuffer();
         for (int i = 0; i < 4; i++)
         {
-            // FIXME FIXME - this needs to be "%03d" format
-            buf.append(octets[i] & 0xFF);
+            buf.append(String.format("%03d", octets[i] & 0xFF));
             if (i < 3) buf.append(".");
         }
         return buf.toString();

@@ -46,8 +46,60 @@ public final class NetAddrIp
     private int address;
     private int netmask;
 
+
+
     //------------------------------------------------------------------
-    
+
+    public static NetAddrIp valueOf(String ipAddrString)
+    {
+        if (ipAddrString == null)
+        {
+            return null;
+        }
+
+        String[] addrAndMask = ipAddrString.split("/");
+        if (addrAndMask.length != 2)
+        {
+            throw new IllegalArgumentException("Cannot parse string '" + ipAddrString + "'");
+        }
+        
+        String maskPart = addrAndMask[1];
+        if (maskPart.length() == 1 || maskPart.length() == 2)  // prefix length
+        {
+            byte prefixLength = -1;
+            try
+            {
+                prefixLength = Byte.parseByte(maskPart);
+            }
+            catch (NumberFormatException e)
+            {
+                throw new IllegalArgumentException("Cannot parse string '" + ipAddrString + "'", e);
+            }
+            return new NetAddrIp(addrAndMask[0], prefixLength);
+        }
+        else if (maskPart.length() >= 7 && maskPart.length() <= 15)  // dotted quad
+        {
+            return new NetAddrIp(addrAndMask[0], addrAndMask[1]);
+        }
+        else
+        {
+            throw new IllegalArgumentException("Cannot parse string '" + ipAddrString + "'");
+        }
+    }
+
+    /**
+     * Creates new instance, performing no validation on the netmask.
+     * @param address
+     * @param netmask
+     * @return NetAddrIp
+     */
+    public static NetAddrIp newInstance(int address, int netmask)
+    {
+        return new NetAddrIp(address, netmask, false);
+    }
+
+    //------------------------------------------------------------------
+
     public NetAddrIp(int address, int netmask)
     {
         NetmaskUtil.validateNetmask(netmask);
@@ -117,45 +169,7 @@ public final class NetAddrIp
         this(address, netmaskEnum.getRawNetmask());
     }
 
-    public static NetAddrIp valueOf(String ipAddrString)
-    {
-        String[] addrAndMask = ipAddrString.split("/");
-        String maskPart = addrAndMask[1];
-        if (maskPart.length() == 1 || maskPart.length() == 2)  // prefix length
-        {
-            byte prefixLength = -1;
-            try
-            {
-                prefixLength = Byte.parseByte(maskPart);
-            }
-            catch (NumberFormatException e)
-            {
-                throw new IllegalArgumentException("Cannot parse string '" + ipAddrString + "'", e);
-            }
-            return new NetAddrIp(addrAndMask[0], prefixLength);
-        }
-        else if (maskPart.length() >= 7 && maskPart.length() <= 15)  // dotted quad
-        {
-            return new NetAddrIp(addrAndMask[0], addrAndMask[1]);
-        }
-        else
-        {
-            throw new IllegalArgumentException("Cannot parse string '" + ipAddrString + "'");
-        }
-    }
 
-    /**
-     * Creates new instance, performing no validation on the netmask.
-     * @param address
-     * @param netmask
-     * @return NetAddrIp
-     */
-    public static NetAddrIp newInstance(int address, int netmask)
-    {
-        return new NetAddrIp(address, netmask, false);
-    }
-
-    //------------------------------------------------------------------
 
     public byte getPrefixLength()
     {
@@ -169,7 +183,7 @@ public final class NetAddrIp
     }
     public long getSize() { return size(); }
 
-    public String getAddr()
+    public String getAddress()
     {
         return NetAddrIpUtil.addressToString(address);
     }
@@ -208,7 +222,8 @@ public final class NetAddrIp
         return compareTo(that);
     }
 
-    @Override public boolean equals(Object other)
+    @Override
+    public boolean equals(Object other)
     {
         if ( ! (other instanceof NetAddrIp))
         {
@@ -219,7 +234,8 @@ public final class NetAddrIp
         return (this.address == that.address) && (this.netmask == that.netmask);
     }
 
-    @Override public int hashCode()
+    @Override
+    public int hashCode()
     {
         return address ^ netmask;
     }
