@@ -20,20 +20,17 @@ package org.agilebracket.net.ip;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-/**
- *
- */
 public class NetAddrIpTest
 {
-    /**
-     * FIXME Doesn't work yet.  getting NullPointerException and ArrayIndexOutOfBoundsException
-     */
+    private static final String VALID_IP_ADDRESS_STRING = "10.0.0.1/24";
+    private static final NetAddrIp NET_ADDR_IP = NetAddrIp.valueOf(VALID_IP_ADDRESS_STRING);
+
+
     @Test
-    public void testValueOf()
+    public void testAbnormalValueOf()
     {
         String[] invalidIpAddresses = new String[]
                 {
-                        null,
                         "",
                         "adsf",
                         "x.x.x.x",
@@ -48,5 +45,19 @@ public class NetAddrIpTest
             }
             catch (IllegalArgumentException e) { /* ignore */ }
         }
+
+        assertNull(NetAddrIp.valueOf(null));
+    }
+
+    @Test
+    public void addressAsString15()
+    {
+        assertEquals("010.000.000.001", NET_ADDR_IP.getAddressAsString15());
+    }
+
+    @Test
+    public void netmaskAsString15()
+    {
+        assertEquals("255.255.255.000", NET_ADDR_IP.getNetmaskAsString15());
     }
 }
